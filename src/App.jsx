@@ -1,0 +1,242 @@
+import React, { useState } from 'react';
+import { 
+  Tabs, Tab, Box, Typography, Container, 
+  Card, CardMedia, CardContent, Button,
+  Stack, Divider, ThemeProvider, createTheme, CssBaseline, Grid
+} from '@mui/material';
+
+
+
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import InstagramIcon from '@mui/icons-material/Instagram';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#2c2c2c', // Gris carbón
+    },
+    secondary: {
+      main: '#c0a062', // Dorado
+    },
+    background: {
+      default: '#faf9f7', 
+      paper: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: '"Montserrat", "Helvetica", "Arial", sans-serif',
+    h1: { fontFamily: '"Playfair Display", serif' },
+    h2: { fontFamily: '"Playfair Display", serif' },
+    h3: { fontFamily: '"Playfair Display", serif' },
+    h4: { fontFamily: '"Playfair Display", serif' },
+    h5: { fontFamily: '"Playfair Display", serif' },
+    h6: { fontFamily: '"Playfair Display", serif' },
+    button: {
+      fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 600,
+      letterSpacing: '1px',
+    }
+  },
+  shape: {
+    borderRadius: 12, 
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          padding: '10px 24px',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+          textTransform: 'none',
+          fontSize: '1rem',
+        }
+      }
+    }
+  }
+});
+
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`peluqueria-tabpanel-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: { xs: 2, md: 4 } }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+const listaServicios = [
+  { titulo: 'Corte y Estilo', descripcion: 'Asesoramiento personalizado y corte a medida para resaltar tus mejores facciones.', precio: 'Desde 25€', imagen: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80' },
+  { titulo: 'Coloración y Mechas', descripcion: 'Balayage, babylights y tintes con productos de primera calidad que cuidan tu cabello.', precio: 'Desde 45€', imagen: 'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=500&q=80' },
+  { titulo: 'Tratamientos Capilares', descripcion: 'Hidratación profunda, keratina y bótox capilar para devolverle la vida a tu pelo.', precio: 'Desde 35€', imagen: 'https://images.unsplash.com/photo-1516975080661-46bfa2028c53?auto=format&fit=crop&w=500&q=80' },
+  { titulo: 'Peinados y Eventos', descripcion: 'Recogidos y peinados elegantes para novias, invitadas y ocasiones especiales.', precio: 'Desde 40€', imagen: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80' }
+];
+
+const fotosInstagram = [
+  'https://images.unsplash.com/photo-1595476108010-b4d1f10d5e43?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=400&q=80',
+  'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80'
+];
+
+const equipo = [
+  { nombre: 'Elena Ruiz', rol: 'Directora Creativa', imagen: 'https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?auto=format&fit=crop&w=400&q=80' },
+  { nombre: 'Carlos Mateo', rol: 'Especialista en Color', imagen: 'https://images.unsplash.com/photo-1506803682983-33f988f5f608?auto=format&fit=crop&w=400&q=80' },
+  { nombre: 'Sofía Lara', rol: 'Estilista Senior', imagen: 'https://images.unsplash.com/photo-1580618864180-f6d7d39b8ffc?auto=format&fit=crop&w=400&q=80' }
+];
+
+function App() {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container maxWidth="lg" sx={{ mt: 5 }}>
+        
+        <Box sx={{ textAlign: 'center', mb: 5 }}>
+          <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
+            Salón Elegance
+          </Typography>
+          <Typography variant="subtitle1" color="text.secondary">
+            Tu estilo, nuestra pasión.
+          </Typography>
+        </Box>
+
+        {/* Eliminado "centered" para evitar el error con "scrollable" */}
+        <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
+          <Tabs 
+            value={value} 
+            onChange={handleChange} 
+            variant="scrollable" 
+            scrollButtons="auto"
+            textColor="primary"
+            indicatorColor="primary"
+          >
+            <Tab label="Servicios" />
+            <Tab label="Quiénes Somos" />
+            <Tab label="Historia" />
+            <Tab label="Ubicación" />
+          </Tabs>
+        </Box>
+
+        <CustomTabPanel value={value} index={0}>
+          <Grid container spacing={4}>
+            {listaServicios.map((servicio, index) => (
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+                <Card 
+                  elevation={0} 
+                  sx={{ 
+                    height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid #eee',
+                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s',
+                    '&:hover': { transform: 'translateY(-5px)', boxShadow: '0 10px 20px rgba(0,0,0,0.08)' }
+                  }}
+                >
+                  <CardMedia component="img" height="220" image={servicio.imagen} alt={servicio.titulo} />
+                  <CardContent sx={{ flexGrow: 1, textAlign: 'center' }}>
+                    <Typography gutterBottom variant="h6" component="h2" fontWeight="bold">{servicio.titulo}</Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>{servicio.descripcion}</Typography>
+                    <Typography variant="subtitle1" fontWeight="bold" color="primary">{servicio.precio}</Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+          <Box sx={{ textAlign: 'center', mt: 6 }}>
+            <Button variant="contained" color="primary" size="large" sx={{ borderRadius: '30px', px: 5, py: 1.5 }}>
+              Reservar Cita
+            </Button>
+          </Box>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={1}>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>Conoce a nuestro equipo</Typography>
+            <Typography color="text.secondary">Profesionales apasionados por sacar tu mejor versión.</Typography>
+          </Box>
+          <Grid container spacing={4} justifyContent="center">
+            {equipo.map((miembro, index) => (
+              <Grid size={{ xs: 12, sm: 4 }} key={index} sx={{ textAlign: 'center' }}>
+                <Box component="img" src={miembro.imagen} alt={miembro.nombre} sx={{ width: 160, height: 160, borderRadius: '50%', objectFit: 'cover', mb: 2, boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+                <Typography variant="h6" fontWeight="bold">{miembro.nombre}</Typography>
+                <Typography color="text.secondary">{miembro.rol}</Typography>
+              </Grid>
+            ))}
+          </Grid>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={2}>
+          <Grid container spacing={6} alignItems="center">
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box component="img" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=80" alt="Interior del salón" sx={{ width: '100%', borderRadius: '16px', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }} />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Typography variant="h4" fontWeight="bold" gutterBottom>Nuestra Historia</Typography>
+              <Typography paragraph color="text.secondary" sx={{ fontSize: '1.1rem', lineHeight: 1.8 }}>Todo empezó hace más de 10 años con un sillón, un espejo y muchísima ilusión...</Typography>
+              <Typography paragraph color="text.secondary" sx={{ fontSize: '1.1rem', lineHeight: 1.8 }}>A lo largo de los años, hemos crecido, nos hemos formado en las mejores academias...</Typography>
+            </Grid>
+          </Grid>
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={3}>
+          <Grid container spacing={4} sx={{ mb: 6 }}>
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Typography variant="h5" fontWeight="bold" gutterBottom>Visítanos</Typography>
+              <Typography color="text.secondary" sx={{ mb: 4 }}>Pásate por nuestro salón. Te invitamos a un café mientras decides tu nuevo look.</Typography>
+              <Stack spacing={3}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><LocationOnIcon color="primary" /><Box><Typography fontWeight="bold">Dirección</Typography><Typography color="text.secondary">Calle Principal 123, Madrid</Typography></Box></Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><PhoneIcon color="primary" /><Box><Typography fontWeight="bold">Teléfono / Reservas</Typography><Typography color="text.secondary">+34 600 123 456</Typography></Box></Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><AccessTimeIcon color="primary" /><Box><Typography fontWeight="bold">Horario</Typography><Typography color="text.secondary">L-V: 10:00 - 20:00 <br/> Sábados: 10:00 - 14:00</Typography></Box></Box>
+              </Stack>
+            </Grid>
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Box sx={{ width: '100%', height: '300px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12146.301548680716!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzAwLjQiTiAzwrA0MicyNS42Ilc!5e0!3m2!1ses!2ses!4v1620000000000!5m2!1ses!2ses" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </Box>
+            </Grid>
+          </Grid>
+          <Divider sx={{ my: 6 }} />
+          <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Typography variant="h5" fontWeight="bold" gutterBottom>Síguenos en Instagram</Typography>
+            <Typography color="text.secondary" sx={{ mb: 3 }}>@salonelegance_madrid</Typography>
+          </Box>
+          <Grid container spacing={2}>
+            {fotosInstagram.map((foto, index) => (
+              <Grid size={{ xs: 6, md: 3 }} key={index}>
+                <Box component="img" src={foto} alt={`Instagram foto ${index + 1}`} sx={{ width: '100%', aspectRatio: '1 / 1', objectFit: 'cover', borderRadius: '12px', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }} />
+              </Grid>
+            ))}
+          </Grid>
+          <Box sx={{ textAlign: 'center', mt: 4 }}>
+            <Button variant="outlined" color="primary" startIcon={<InstagramIcon />} sx={{ borderRadius: '30px', px: 4, textTransform: 'none' }}>
+              Ver perfil completo
+            </Button>
+          </Box>
+        </CustomTabPanel>
+
+      </Container>
+    </ThemeProvider>
+  );
+}
+
+export default App;
