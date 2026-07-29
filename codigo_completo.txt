@@ -1,22 +1,35 @@
+
+
+================================================
+📂 ARCHIVO: src/App.jsx
+================================================
+
 import React, { useState } from 'react';
 import { 
   Tabs, Tab, Box, Typography, Container, 
   Card, CardMedia, CardContent, Button,
-  Stack, Divider, ThemeProvider, createTheme, CssBaseline, Grid,
-  Dialog, DialogTitle, DialogContent, IconButton // <-- Nuevos componentes para el Modal
+  Stack, Divider, ThemeProvider, createTheme, CssBaseline, Grid
 } from '@mui/material';
+
+
 
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import CloseIcon from '@mui/icons-material/Close'; // <-- Icono para cerrar el Modal
 
 const theme = createTheme({
   palette: {
-    primary: { main: '#2c2c2c' }, // Gris carbón
-    secondary: { main: '#c0a062' }, // Dorado
-    background: { default: '#faf9f7', paper: '#ffffff' },
+    primary: {
+      main: '#2c2c2c', // Gris carbón
+    },
+    secondary: {
+      main: '#c0a062', // Dorado
+    },
+    background: {
+      default: '#faf9f7', 
+      paper: '#ffffff',
+    },
   },
   typography: {
     fontFamily: '"Montserrat", "Helvetica", "Arial", sans-serif',
@@ -26,63 +39,60 @@ const theme = createTheme({
     h4: { fontFamily: '"Playfair Display", serif' },
     h5: { fontFamily: '"Playfair Display", serif' },
     h6: { fontFamily: '"Playfair Display", serif' },
-    button: { fontFamily: '"Montserrat", sans-serif', fontWeight: 600, letterSpacing: '1px' }
+    button: {
+      fontFamily: '"Montserrat", sans-serif',
+      fontWeight: 600,
+      letterSpacing: '1px',
+    }
   },
-  shape: { borderRadius: 12 },
+  shape: {
+    borderRadius: 12, 
+  },
   components: {
-    MuiButton: { styleOverrides: { root: { textTransform: 'none', padding: '10px 24px' } } },
-    MuiTab: { styleOverrides: { root: { fontWeight: 600, textTransform: 'none', fontSize: '1rem' } } }
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          padding: '10px 24px',
+        },
+      },
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+          textTransform: 'none',
+          fontSize: '1rem',
+        }
+      }
+    }
   }
 });
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+
   return (
-    <div role="tabpanel" hidden={value !== index} id={`peluqueria-tabpanel-${index}`} {...other}>
-      {value === index && <Box sx={{ p: { xs: 2, md: 4 } }}>{children}</Box>}
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`peluqueria-tabpanel-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: { xs: 2, md: 4 } }}>
+          {children}
+        </Box>
+      )}
     </div>
   );
 }
 
-// --- DATOS ---
 const listaServicios = [
   { titulo: 'Corte y Estilo', descripcion: 'Asesoramiento personalizado y corte a medida para resaltar tus mejores facciones.', precio: 'Desde 25€', imagen: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80' },
   { titulo: 'Coloración y Mechas', descripcion: 'Balayage, babylights y tintes con productos de primera calidad que cuidan tu cabello.', precio: 'Desde 45€', imagen: 'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=500&q=80' },
   { titulo: 'Tratamientos Capilares', descripcion: 'Hidratación profunda, keratina y bótox capilar para devolverle la vida a tu pelo.', precio: 'Desde 35€', imagen: 'https://images.unsplash.com/photo-1516975080661-46bfa2028c53?auto=format&fit=crop&w=500&q=80' },
   { titulo: 'Peinados y Eventos', descripcion: 'Recogidos y peinados elegantes para novias, invitadas y ocasiones especiales.', precio: 'Desde 40€', imagen: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80' }
-];
-
-// 💍 NUEVOS DATOS: Lista de Novias y sus galerías
-const listaNovias = [
-  {
-    nombre: 'Ana Marques',
-    imagenPrincipal: '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.58.jpeg',
-    galeria: [
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.58.jpeg',
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-21 at 20.58.02.jpeg',
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.09 (1).jpeg',
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.09.jpeg',
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.10 (1).jpeg',
-      '/imagenes/novias/anamarques/WhatsApp Image 2023-06-22 at 07.24.10.jpeg'
-    ]
-  },
-  {
-    nombre: 'Boda de Marta & Luis',
-    imagenPrincipal: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80',
-    galeria: [
-      'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1546804784-816d92982d6b?auto=format&fit=crop&w=1000&q=80'
-    ]
-  },
-  {
-    nombre: 'Boda de Sofía & Álex',
-    imagenPrincipal: 'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=600&q=80',
-    galeria: [
-      'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1541250848049-b4f714612024?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1000&q=80'
-    ]
-  }
 ];
 
 const fotosInstagram = [
@@ -93,31 +103,16 @@ const fotosInstagram = [
 ];
 
 const equipo = [
-  { nombre: 'Sheila Valle', rol: 'Maquilladora', imagen: '/imagenes/team/sheila.jpg' },
-  { nombre: 'Carolina Cortes', rol: 'Estilista Senior', imagen: '/imagenes/team/carol.png' },
-  { nombre: 'Andrea Arroyo', rol: 'Estilista', imagen: '/imagenes/team/andrea.png' }
+  { nombre: 'Elena Ruiz', rol: 'Directora Creativa', imagen: 'https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?auto=format&fit=crop&w=400&q=80' },
+  { nombre: 'Carlos Mateo', rol: 'Especialista en Color', imagen: 'https://images.unsplash.com/photo-1506803682983-33f988f5f608?auto=format&fit=crop&w=400&q=80' },
+  { nombre: 'Sofía Lara', rol: 'Estilista Senior', imagen: 'https://images.unsplash.com/photo-1580618864180-f6d7d39b8ffc?auto=format&fit=crop&w=400&q=80' }
 ];
 
 function App() {
   const [value, setValue] = useState(0);
-  
-  // Estados para controlar el Modal de las novias
-  const [openModal, setOpenModal] = useState(false);
-  const [noviaSeleccionada, setNoviaSeleccionada] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleOpenModal = (novia) => {
-    setNoviaSeleccionada(novia);
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    // Un pequeño retraso al limpiar para que la animación de cierre no dé tirones
-    setTimeout(() => setNoviaSeleccionada(null), 300);
   };
 
   return (
@@ -134,6 +129,7 @@ function App() {
           </Typography>
         </Box>
 
+        {/* Eliminado "centered" para evitar el error con "scrollable" */}
         <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', justifyContent: 'center' }}>
           <Tabs 
             value={value} 
@@ -144,14 +140,12 @@ function App() {
             indicatorColor="primary"
           >
             <Tab label="Servicios" />
-            <Tab label="Novias" /> {/* <-- Nueva Pestaña */}
             <Tab label="Quiénes Somos" />
             <Tab label="Historia" />
             <Tab label="Ubicación" />
           </Tabs>
         </Box>
 
-        {/* PESTAÑA 0: SERVICIOS */}
         <CustomTabPanel value={value} index={0}>
           <Grid container spacing={4}>
             {listaServicios.map((servicio, index) => (
@@ -181,43 +175,7 @@ function App() {
           </Box>
         </CustomTabPanel>
 
-        {/* PESTAÑA 1: NOVIAS (NUEVA) */}
         <CustomTabPanel value={value} index={1}>
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography variant="h4" fontWeight="bold" gutterBottom>Especial Novias</Typography>
-            <Typography color="text.secondary">
-              Acompañándote en el día más importante para que luzcas radiante.
-            </Typography>
-          </Box>
-          <Grid container spacing={4}>
-            {listaNovias.map((novia, index) => (
-              // md: 4 significa que ocupará 4 de 12 columnas (es decir, 3 por fila)
-              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                <Card 
-                  elevation={0} 
-                  onClick={() => handleOpenModal(novia)}
-                  sx={{ 
-                    cursor: 'pointer', // Cambia el cursor para indicar que se puede hacer clic
-                    height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid #eee',
-                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s',
-                    '&:hover': { transform: 'translateY(-5px)', boxShadow: '0 10px 20px rgba(0,0,0,0.08)' }
-                  }}
-                >
-                  <CardMedia component="img" height="320" image={novia.imagenPrincipal} alt={novia.nombre} />
-                  <CardContent sx={{ textAlign: 'center', backgroundColor: '#fff' }}>
-                    <Typography variant="h6" component="h2" fontWeight="bold">{novia.nombre}</Typography>
-                    <Typography variant="body2" color="primary" sx={{ mt: 1, textDecoration: 'underline' }}>
-                      Ver galería completa
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </CustomTabPanel>
-
-        {/* PESTAÑA 2: QUIÉNES SOMOS (Antes index 1) */}
-        <CustomTabPanel value={value} index={2}>
           <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Typography variant="h4" fontWeight="bold" gutterBottom>Conoce a nuestro equipo</Typography>
             <Typography color="text.secondary">Profesionales apasionados por sacar tu mejor versión.</Typography>
@@ -233,8 +191,7 @@ function App() {
           </Grid>
         </CustomTabPanel>
 
-        {/* PESTAÑA 3: HISTORIA (Antes index 2) */}
-        <CustomTabPanel value={value} index={3}>
+        <CustomTabPanel value={value} index={2}>
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Box component="img" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=600&q=80" alt="Interior del salón" sx={{ width: '100%', borderRadius: '16px', boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }} />
@@ -247,8 +204,7 @@ function App() {
           </Grid>
         </CustomTabPanel>
 
-        {/* PESTAÑA 4: UBICACIÓN E INSTAGRAM (Antes index 3) */}
-        <CustomTabPanel value={value} index={4}>
+        <CustomTabPanel value={value} index={3}>
           <Grid container spacing={4} sx={{ mb: 6 }}>
             <Grid size={{ xs: 12, md: 5 }}>
               <Typography variant="h5" fontWeight="bold" gutterBottom>Visítanos</Typography>
@@ -285,43 +241,22 @@ function App() {
         </CustomTabPanel>
 
       </Container>
-
-      {/* 🖼️ MODAL DE GALERÍA DE NOVIAS */}
-      <Dialog 
-        open={openModal} 
-        onClose={handleCloseModal}
-        maxWidth="md" // Ancho máximo del modal
-        fullWidth
-        scroll="paper" // El scroll se hace dentro del cuadro de diálogo, no en la página entera
-      >
-        <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Typography variant="h5" fontWeight="bold" component="span">
-            {noviaSeleccionada?.nombre}
-          </Typography>
-          <IconButton onClick={handleCloseModal} sx={{ color: 'grey.500' }}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent dividers sx={{ backgroundColor: '#faf9f7' }}>
-          <Stack spacing={3}>
-            {noviaSeleccionada?.galeria.map((imgUrl, idx) => (
-              <Box 
-                key={idx}
-                component="img"
-                src={imgUrl}
-                alt={`${noviaSeleccionada?.nombre} - Foto ${idx + 1}`}
-                sx={{ 
-                  width: '100%', 
-                  borderRadius: '12px',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                }}
-              />
-            ))}
-          </Stack>
-        </DialogContent>
-      </Dialog>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+================================================
+📂 ARCHIVO: src/main.jsx
+================================================
+
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
