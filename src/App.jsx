@@ -48,7 +48,7 @@ function CustomTabPanel(props) {
 const listaServicios = [
   { titulo: 'Corte y Estilo', descripcion: 'Asesoramiento personalizado y corte a medida para resaltar tus mejores facciones.', precio: 'Desde 25€', imagen: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=500&q=80' },
   { titulo: 'Coloración y Mechas', descripcion: 'Balayage, babylights y tintes con productos de primera calidad que cuidan tu cabello.', precio: 'Desde 45€', imagen: 'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=500&q=80' },
-  { titulo: 'Tratamientos Capilares', descripcion: 'Hidratación profunda, keratina y bótox capilar para devolverle la vida a tu pelo.', precio: 'Desde 35€', imagen: 'https://images.unsplash.com/photo-1516975080661-46bfa2028c53?auto=format&fit=crop&w=500&q=80' },
+  { titulo: 'Tratamientos Capilares', descripcion: 'Hidratación profunda, keratina y bótox capilar para devolverle la vida a tu pelo.', precio: 'Desde 35€', imagen: '/imagenes/servicios/capilar.jpg' },
   { titulo: 'Peinados y Eventos', descripcion: 'Recogidos y peinados elegantes para novias, invitadas y ocasiones especiales.', precio: 'Desde 40€', imagen: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&w=500&q=80' }
 ];
 
@@ -67,29 +67,36 @@ const listaNovias = [
     ]
   },
   {
-    nombre: 'Boda de Marta & Luis',
-    imagenPrincipal: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=80',
+    nombre: 'Andrea Garcia',
+    imagenPrincipal: '/imagenes/novias/andreagarcia/3.jpeg',
     galeria: [
-      'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1546804784-816d92982d6b?auto=format&fit=crop&w=1000&q=80'
+      '/imagenes/novias/andreagarcia/3.jpeg',
+      '/imagenes/novias/andreagarcia/2.jpeg',
+      '/imagenes/novias/andreagarcia/5.jpeg',
+      '/imagenes/novias/andreagarcia/9.jpeg',
+      '/imagenes/novias/andreagarcia/12.jpeg',
+      '/imagenes/novias/andreagarcia/15.jpeg'
     ]
   },
   {
-    nombre: 'Boda de Sofía & Álex',
-    imagenPrincipal: 'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=600&q=80',
+    nombre: 'Arantxa Calvo',
+    imagenPrincipal: '/imagenes/novias/arantxacalvo/1.jpg',
     galeria: [
-      'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1541250848049-b4f714612024?auto=format&fit=crop&w=1000&q=80',
-      'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1000&q=80'
+      '/imagenes/novias/arantxacalvo/1.jpg',
+      '/imagenes/novias/arantxacalvo/2.jpg',
+      '/imagenes/novias/arantxacalvo/3.jpg',
+      '/imagenes/novias/arantxacalvo/4.jpg',
+      '/imagenes/novias/arantxacalvo/5.jpeg',
+      '/imagenes/novias/arantxacalvo/6.jpeg'
     ]
   }
 ];
 
 const fotosInstagram = [
-  'https://images.unsplash.com/photo-1595476108010-b4d1f10d5e43?auto=format&fit=crop&w=400&q=80',
-  'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=400&q=80',
-  'https://images.unsplash.com/photo-1620331311520-246422fd82f9?auto=format&fit=crop&w=400&q=80',
-  'https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=400&q=80'
+  '/imagenes/instagram/1.png',
+  '/imagenes/instagram/2.png',
+  '/imagenes/instagram/3.png',
+  '/imagenes/instagram/4.png'
 ];
 
 const equipo = [
@@ -120,6 +127,10 @@ function App() {
     setTimeout(() => setNoviaSeleccionada(null), 300);
   };
 
+  const goToIG = () => {
+    window.open("https://www.instagram.com/shecares.me/")
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -127,7 +138,7 @@ function App() {
         
         <Box sx={{ textAlign: 'center', mb: 5 }}>
           <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
-            Salón Elegance
+            She Cares Me
           </Typography>
           <Typography variant="subtitle1" color="text.secondary">
             Tu estilo, nuestra pasión.
@@ -254,21 +265,21 @@ function App() {
               <Typography variant="h5" fontWeight="bold" gutterBottom>Visítanos</Typography>
               <Typography color="text.secondary" sx={{ mb: 4 }}>Pásate por nuestro salón. Te invitamos a un café mientras decides tu nuevo look.</Typography>
               <Stack spacing={3}>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><LocationOnIcon color="primary" /><Box><Typography fontWeight="bold">Dirección</Typography><Typography color="text.secondary">Calle Principal 123, Madrid</Typography></Box></Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><PhoneIcon color="primary" /><Box><Typography fontWeight="bold">Teléfono / Reservas</Typography><Typography color="text.secondary">+34 600 123 456</Typography></Box></Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><AccessTimeIcon color="primary" /><Box><Typography fontWeight="bold">Horario</Typography><Typography color="text.secondary">L-V: 10:00 - 20:00 <br/> Sábados: 10:00 - 14:00</Typography></Box></Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><LocationOnIcon color="primary" /><Box><Typography fontWeight="bold">Dirección</Typography><Typography color="text.secondary">Calle Carcagente 24, Castellon de la Plana</Typography></Box></Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><PhoneIcon color="primary" /><Box><Typography fontWeight="bold">Teléfono / Reservas</Typography><Typography color="text.secondary">+34 624 653 142</Typography></Box></Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}><AccessTimeIcon color="primary" /><Box><Typography fontWeight="bold">Horario</Typography><Typography color="text.secondary">L-V: 10:00 - 19:00 <br/> Sábados: 10:00 - 14:00</Typography></Box></Box>
               </Stack>
             </Grid>
             <Grid size={{ xs: 12, md: 7 }}>
               <Box sx={{ width: '100%', height: '300px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12146.301548680716!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzAwLjQiTiAzwrA0MicyNS42Ilc!5e0!3m2!1ses!2ses!4v1620000000000!5m2!1ses!2ses" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3057.251336979107!2d-0.03484522311236975!3d39.98048827151312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd600121485cf9f5%3A0x3271400951f45b13!2sSHE%20CARES%20ME!5e0!3m2!1sen!2ses!4v1785789528792!5m2!1sen!2ses" width="100%" height="100%" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
               </Box>
             </Grid>
           </Grid>
           <Divider sx={{ my: 6 }} />
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>Síguenos en Instagram</Typography>
-            <Typography color="text.secondary" sx={{ mb: 3 }}>@salonelegance_madrid</Typography>
+            <Typography color="text.secondary" sx={{ mb: 3 }}>@shecares.me</Typography>
           </Box>
           <Grid container spacing={2}>
             {fotosInstagram.map((foto, index) => (
@@ -278,7 +289,7 @@ function App() {
             ))}
           </Grid>
           <Box sx={{ textAlign: 'center', mt: 4 }}>
-            <Button variant="outlined" color="primary" startIcon={<InstagramIcon />} sx={{ borderRadius: '30px', px: 4, textTransform: 'none' }}>
+            <Button variant="outlined" color="primary" startIcon={<InstagramIcon />} onClick={goToIG} sx={{ borderRadius: '30px', px: 4, textTransform: 'none' }}>
               Ver perfil completo
             </Button>
           </Box>
